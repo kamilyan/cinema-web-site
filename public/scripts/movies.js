@@ -2,7 +2,7 @@
     function Start() {
         let movieTab = document.getElementById('allMovies');
     
-        if(movieTab.classList.contains('active')){
+        if(movieTab && movieTab.classList.contains('active')){
             $('#searchButton').click(() => {
                 let value = $('#searchMovie').val().toLowerCase();
                 $(".cardMovies").filter(function () {
