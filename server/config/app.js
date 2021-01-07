@@ -7,15 +7,15 @@ let logger = require('morgan')
 // modules for authentication
 let session = require('express-session')
 let passport = require('passport')
-let passportLocal = require('passport-local')
-let localStrategy = passportLocal.Strategy
 let flash = require('connect-flash')
 
+// Routes
 let indexRouter = require('../routes/index')
 let usersRouter = require('../routes/users')
 let moviesRouter = require('../routes/movies')
 let subscriptionsRouter = require('../routes/subscriptions')
 
+// initialize dbs with some data
 require('./seed')
 
 let app = express()
@@ -24,7 +24,6 @@ let app = express()
 let mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 let DB = require('./db')
-
 mongoose.connect(DB.URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 let mongoDB = mongoose.connection

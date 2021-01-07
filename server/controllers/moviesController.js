@@ -151,8 +151,7 @@ module.exports.displayEditMovie = function (req, res, next) {
   try {
     axios
       .get(
-        'http://subscriptions-rest-api.herokuapp.com/api/movies/' +
-          req.params.id
+        `http://subscriptions-rest-api.herokuapp.com/api/movies/${req.params.id}`
       )
       .then((movie) => {
         return res.render('layout', {
@@ -169,13 +168,17 @@ module.exports.displayEditMovie = function (req, res, next) {
 module.exports.performEditMovie = function (req, res, next) {
   try {
     axios
-      .put('http://subscriptions-rest-api.herokuapp.com/api/movies', {
-        _id: req.params.id,
-        name: req.body.name,
-        genres: req.body.genres.split(','),
-        image: req.body.imageURL,
-        premiered: new Date(req.body.premiered),
-      })
+      .put(
+        'http://subscriptions-rest-api.herokuapp.com/api/movies',
+        {
+          _id: req.params.id,
+          name: req.body.name,
+          genres: req.body.genres.split(','),
+          image: req.body.imageURL,
+          premiered: new Date(req.body.premiered),
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
       .then(() => res.redirect('/movies/allMovies'))
   } catch (error) {
     console.log(error)
@@ -186,7 +189,7 @@ module.exports.performEditMovie = function (req, res, next) {
 module.exports.performDeleteMovie = async function (req, res, next) {
   try {
     await axios.delete(
-      'http://subscriptions-rest-api.herokuapp.com/api/movies/' + req.params.id
+      `http://subscriptions-rest-api.herokuapp.com/api/movies/${req.params.id}`
     )
     let subscribers = await axios.get(
       'http://subscriptions-rest-api.herokuapp.com/api/subscribers'
@@ -199,11 +202,11 @@ module.exports.performDeleteMovie = async function (req, res, next) {
       if (index != -1) {
         subscriber.movies.splice(index, 1)
         await axios.put(
-          'http://subscriptions-rest-api.herokuapp.com/api/subscribers/' +
-            subscriber._id,
+          `http://subscriptions-rest-api.herokuapp.com/api/subscribers/${subscriber._id}`,
           {
             movies: subscriber.movies,
-          }
+          },
+          { headers: { 'Content-Type': 'application/json' } }
         )
       }
     }
