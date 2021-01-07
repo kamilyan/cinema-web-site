@@ -1,0 +1,26 @@
+<%- include ../contentMain/manageUsers.ejs %>
+
+<% for (let i = 0; i < usersDetails.length; i++) { %>
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>Name : <small><%= usersDetails[i].name %> </small></h5>
+                <h5>Username : <small><%= usersDetails[i].username %></small></h5>
+                <h5>Session time out (Minutes) : <small><%= usersDetails[i].sessionTimeOut %></small></h5>
+                <h5>Created data : <small><%= usersDetails[i].createdData %></small></h5>
+                <h5>Permissions :<small>
+                        <ul>
+                            <% for (let j = 0; j < usersDetails[i].permissions.length ; j++) { %>
+                            <li><%= usersDetails[i].permissions[j] %></li>
+                            <% } %>
+                        </ul>
+                        <small>
+                </h5>
+                <a class="btn btn-primary" href="/users/edit/<%= usersDetails[i].id %>">Edit</a>
+                <a class="btn btn-danger" href="/users/delete/<%= usersDetails[i].id %>">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>

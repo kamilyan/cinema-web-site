@@ -1,0 +1,73 @@
+<%- include ../contentMain/manageUsers.ejs %>
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+        <h3>Edit User :</h3>
+
+        <form method="POST" action="/users/edit/<%= userDetails.id %>">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" id="firstName" value=" <%= userDetails.firstName %> "
+                    name="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" id="lastName" value=" <%= userDetails.lastName %> "
+                    name="lastName">
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="email" class="form-control" id="username" value=" <%= userDetails.username %> "
+                    name="username">
+            </div>
+            <div class="form-group">
+                <label for="sessionTimeOut">Session Time Out (Mintues):</label>
+                <input type="text" class="form-control" id="sessionTimeOut" value=" <%= userDetails.sessionTimeOut %> "
+                    name="sessionTimeOut">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="viewSubscriptions" id="viewSubscriptions" value="viewSubscriptions"
+                    <% if (userDetails.permissions.includes("viewSubscriptions")) { %> checked <% } %>>
+                <label for="viewSubscriptions"> View Subscriptions</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="createSubscriptions" id="createSubscriptions" value="createSubscriptions"
+                    <% if (userDetails.permissions.includes("createSubscriptions")) { %> checked <% } %>>
+                <label for="createSubscriptions"> Create Subscriptions</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="deleteSubscriptions" id="deleteSubscriptions" value="deleteSubscriptions"
+                    <% if (userDetails.permissions.includes("deleteSubscriptions")) { %> checked <% } %>>
+                <label for="deleteSubscriptions"> Delete Subscriptions</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="updateSubscriptions" id="updateSubscriptions" value="updateSubscriptions"
+                    <% if (userDetails.permissions.includes("updateSubscriptions")) { %> checked <% } %>>
+                <label for="updateSubscriptions"> Update Subscriptions</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="viewMovies" id="viewMovies" value="viewMovies"
+                    <% if (userDetails.permissions.includes("viewMovies")) { %> checked <% } %>>
+                <label for="viewMovies"> View Movies</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="createMovies" id="createMovies" value="createMovies"
+                    <% if (userDetails.permissions.includes("createMovies")) { %> checked <% } %>>
+                <label for="viewMovies"> Create Movie</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="deleteMovies" id="deleteMovies" value="deleteMovies"
+                    <% if (userDetails.permissions.includes("deleteMovies")) { %> checked <% } %>>
+                <label for="deleteMovies"> Delete Movies</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" name="updateMovies" id="updateMovies" value="updateMovies"
+                    <% if (userDetails.permissions.includes("updateMovies")) { %> checked <% } %>>
+                <label for="updateMovies"> Update Movie</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a class="btn btn-danger" href=/users>Cancel</a>
+        </form>
+    </div>
+</div>
+</div>

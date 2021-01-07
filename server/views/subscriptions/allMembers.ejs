@@ -1,0 +1,86 @@
+<%- include ./main.ejs %> <% for (let i = 0; i < members.length; i++) { %>
+<div class="row">
+  <div class="offset-md-3 col-md-6 col-sm-12">
+    <div class="card">
+      <h4><%= members[i].name %></h4>
+      Email : <%= members[i].email %><br />
+      City : <%= members[i].city %><br /><br />
+      <% if (permissions.indexOf("updateSubscriptions") > -1) { %>
+      <a
+        class="btn btn-primary"
+        href="/subscriptions/edit/<%= members[i]._id %>"
+        >Edit</a
+      >
+      <% } %> <% if ( permissions.indexOf("deleteSubscriptions") > -1) { %>
+      <a
+        class="btn btn-danger"
+        href="/subscriptions/delete/<%= members[i]._id %>"
+        >Delete</a
+      >
+      <% } %>
+      <div class="card">
+        <h4>Movies Watched</h4>
+        <button
+          type="button"
+          id="<%= i %>"
+          class="btn btn-secondary showAddMovieSection"
+        >
+          Subscribe to a new movie
+        </button>
+        <div style="display: none" class="card" id="addNewMovieSection<%= i %>">
+          <h4>Add a new movie</h4>
+          <br />
+          <form
+            id="addMovieForm<%= i %>"
+            action="/subscriptions/addMovie/<%= members[i].subscriptionId %>"
+          >
+            <div class="row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label
+                      class="input-group-text"
+                      for="inputGroupSelect<%= i %>"
+                      >Options</label
+                    >
+                  </div>
+                  <select
+                    name="movieId"
+                    class="custom-select selectMovie<%= i %>"
+                    id="inputGroupSelect<%= i %>"
+                  >
+                    <option selected>Choose...</option>
+                    <% for (let k = 0; k < members[i].unwatchedMovies.length;
+                    k++) { %>
+                    <option
+                      id="<%= members[i].unwatchedMovies[k].movieId %>"
+                      value="<%= members[i].unwatchedMovies[k].movieId %>"
+                    >
+                      <%= members[i].unwatchedMovies[k].movieName %>
+                    </option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <input name="watchMovieDate" class="form-control" type="date" />
+              </div>
+            </div>
+            <input type="submit" value="Subscribe" />
+          </form>
+        </div>
+        <ul id="movieItems<%= i %>">
+          <% for (let j=0; j< members[i].watchedMovies.length; j++) { %>
+          <li>
+            <a href="/movies/<%= members[i].watchedMovies[j].movieId %>"
+              ><%= members[i].watchedMovies[j].movieName %></a
+            >
+            , <%= members[i].watchedMovies[j].date %>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>

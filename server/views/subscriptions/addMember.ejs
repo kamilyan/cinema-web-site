@@ -1,0 +1,30 @@
+<%- include ./main.ejs %>
+
+<div class="row">
+  <div class="offset-md-3 col-md-6 col-sm-12">
+    <h4>Add new Member</h4>
+    <form method="POST" action="/subscriptions/add">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          placeholder="example@example.com"
+          class="form-control"
+          id="email"
+          name="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" class="form-control" id="city" name="city" />
+      </div>
+
+      <input class="btn btn-primary" type="submit" value="Save" />
+      <a class="btn btn-danger" href="/subscriptions">Cancel</a>
+    </form>
+  </div>
+</div>

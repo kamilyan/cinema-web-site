@@ -1,0 +1,50 @@
+<%- include ./main.ejs %> <% for (let i = 0; i < movies.length; i++) { %>
+<div class="row">
+  <div class="offset-md-3 col-md-6 col-sm-12">
+    <div class="card cardMovies">
+      <h4 class="card-title">
+        <%= movies[i].name %> , <%= new Date(movies[i].premiered).getFullYear();
+        %>
+      </h4>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <img
+            class="card-img-top img-thumbnail"
+            src="<%= movies[i].image %>"
+            alt="Responsive image"
+          />
+        </div>
+        <div class="col-md-8 col-sm-12 mt-3">
+          <h6>Subscriptions watched</h6>
+          <ul>
+            <% for (let k=0; k < movies[i].membersWatchedMovie.length; k++) { %>
+            <li>
+              <a
+                href="/subscriptions/<%= movies[i].membersWatchedMovie[k].subscriptionId %>"
+                ><%= movies[i].membersWatchedMovie[k].memberName %></a
+              >
+              <%= movies[i].membersWatchedMovie[k].date %>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          Genres: <% for (let j = 0; j < movies[i].genres.length ; j ++ ) { %>
+          <%= movies[i].genres[j] %> <% } %>
+        </p>
+      </div>
+      <% if (permissions.indexOf("updateMovies") > -1) { %>
+      <a class="btn btn-primary" href="/movies/edit/<%= movies[i]._id %>"
+        >Edit</a
+      >
+      <% } %> <% if ( permissions.indexOf("deleteMovies") > -1) { %>
+      <a class="btn btn-danger" href="/movies/delete/<%= movies[i]._id %>"
+        >Delete</a
+      >
+      <% } %>
+    </div>
+  </div>
+</div>
+<% } %>
